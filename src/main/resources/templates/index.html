@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="wide wow-animation" lang="en">
+  <head th:insert="~{fragments/nonLoginUser :: head}"></head>
+  <body>
+  <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img th:src="@{/images/ie8-panel/warning_bar_0000_us.jpg}" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <div th:insert="~{fragments/nonLoginUser :: preloader}"></div>
+
+    <div class="page">
+      <header th:insert="~{fragments/nonLoginUser :: header}"></header>
+      <!--Swiper-->
+      <section th:insert="~{fragments/nonLoginUser :: swiper}" ></section>
+
+      <!-- News GROUP-->
+      <section class="section bg-default section-md">
+        <div class="container">
+          <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Breaking <span class="text-light">NEWS</span></span></h2>
+          <div class="row row-30">
+<!--            news input -->
+            <form th:action="@{/}" method="post">
+              <div class="col-md-10 wow fadeInUp">
+                <input type="text" class="input col-md-10" name="category" placeholder="Write category ..."> <button type="submit" class="btn btn-sm btn-primary" style="padding-left: 30px; padding-right: 30px;"  >SHOW</button>
+              </div>
+            </form>
+
+          </div>
+<!--          news generator-->
+
+          <div th:each="oneNews: ${news}" class="box-image-small box-image-small-left">
+            <div class="item-image bg-image novi-background" >
+              <img th:width="445" th:height="200"  th:src="${oneNews.urlToImage}" alt="" >
+            </div>
+            <div class="item-body wow fadeInRight">
+              <p th:text="${oneNews.source}"></p>
+              <h4><a th:text="${oneNews.title}"></a></h4>
+              <p class="big" th:text="${oneNews.description}"></p>
+            </div>
+            <div><a th:href="${oneNews.url}"  target="_blank" rel="noopener noreferrer" type="button" class="btn btn-sm btn-primary" style="padding-left: 30px; padding-right: 30px;" >MORE...</a> </div>
+            <p>           </p><br>
+            <p>           </p><br>
+          </div>
+          <div>
+            <span th:text="${error}"></span>
+          </div>
+        </div>
+      </section>
+
+      <footer th:insert="~{fragments/nonLoginUser :: footer}"></footer>
+
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script th:src="@{/js/core.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <!--coded by Starlight-->
+  </body>
+</html>

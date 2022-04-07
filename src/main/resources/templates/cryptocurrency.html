@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="wide wow-animation" lang="en">
+<head th:insert="~{fragments/nonLoginUser :: head}"></head>
+<body>
+<div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img th:src="@{/images/ie8-panel/warning_bar_0000_us.jpg}" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+<div th:insert="~{fragments/nonLoginUser :: preloader}"></div>
+
+<div class="page">
+  <header th:insert="~{fragments/nonLoginUser :: header}"></header>
+  <!--Swiper-->
+  <section th:insert="~{fragments/nonLoginUser :: swiper}" ></section>
+
+  <!-- crypto GROUP-->
+  <section class="section bg-default section-md">
+    <div class="container">
+      <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Crypto <span class="text-light">currencies</span></span></h2>
+      <h5 class="title-icon"><span>Last update: <span class="text-light" th:text="${session.cryptoLastUpdate}"></span></span></h5>
+
+      <div class="row row-30">
+        <!--            crypto input -->
+
+        <form th:action="@{/cryptocurrency}" method="post">
+          <div class="col-md-10 wow fadeInUp">
+
+            <select class="input col-md-10" name="filter">
+              <option value="priceHighToLow">Price: High to Low</option>
+              <option value="priceLowToHigh">Price: Low to High</option>
+            </select>
+          </div>
+
+          <div class="col-md-10 wow fadeInUp">
+            <input type="text" class="input col-md-10" name="name" placeholder="Find crypto ..."> <button type="submit" class="btn btn-sm btn-primary" style="padding-left: 30px; padding-right: 30px;"  >FIND</button>
+          </div>
+        </form>
+      </div>
+      <!--          crypto generator-->
+      <table id="example" class="table table-bordered tab-pane" style="width: 100%">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Price USD</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="crypto : ${cryptos}">
+
+          <td ><img  th:src="@{${'/images/currency/' + crypto.name+ '.png'}}" width="30" height="30" ></td>
+          <td th:text="${crypto.name.toUpperCase()}"></td>
+          <td th:text="${crypto.price}"></td>
+        </tr>
+        </tbody>
+      </table>
+      <div>
+        <span th:text="${nonCrypto}"></span>
+      </div>
+      <div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer th:insert="~{fragments/nonLoginUser :: footer}"></footer>
+
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script th:src="@{/js/core.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<!--coded by Starlight-->
+</body>
+</html>
