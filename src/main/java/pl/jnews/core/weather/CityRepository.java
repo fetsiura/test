@@ -31,7 +31,7 @@ interface CityRepository extends JpaRepository<City,Long> {
     List<City> findCitiesByWindSpeed();
 
     @Query(nativeQuery = true,
-    value = "SELECT COUNT(*) FROM CITIES")
+    value = "SELECT COUNT(*) FROM cities")
     Integer countAllCity();
 
     List<City> findByNameStartsWith(String name);

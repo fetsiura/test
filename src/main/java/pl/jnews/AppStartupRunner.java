@@ -18,7 +18,7 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        cryptoService.runUpdateCryptoTimer();
-//        cityService.runUpdateCitiesTimer();
+        cryptoService.runUpdateCryptoTimer();
+        cityService.runUpdateCitiesTimer();
     }
 }

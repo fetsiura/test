@@ -22,6 +22,6 @@ interface CryptoRepository extends JpaRepository<Crypto,Long> {
     List<Crypto> findByNameStartsWith(String name);
 
     @Query(nativeQuery = true,
-            value = "SELECT COUNT(*) FROM CRYPTO")
+            value = "SELECT COUNT(*) FROM crypto")
     Integer countAllCrypto();
 }
