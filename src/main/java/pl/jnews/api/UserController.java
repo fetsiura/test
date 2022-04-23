@@ -9,9 +9,6 @@ import pl.jnews.core.crypto.Crypto;
 import pl.jnews.core.crypto.CryptoServiceImplement;
 import pl.jnews.core.news.News;
 import pl.jnews.core.news.NewsServiceImplement;
-import pl.jnews.core.weather.City;
-import pl.jnews.core.weather.CityServiceImplement;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +21,6 @@ class UserController {
 
     private final NewsServiceImplement newsService;
     private final CryptoServiceImplement cryptoService;
-    private final CityServiceImplement cityService;
 
     //// wyszukiwanie wiadomości
     @GetMapping
@@ -101,61 +97,8 @@ class UserController {
         return "cryptocurrency";
     }
 
-
-
-    ////kontrolery pogody
-    @GetMapping("/weather")
-    public String getWeather(Model model,
-                             HttpSession session){
-
-        List<City> cities = cityService.cityByNameASC();
-        if(session.getAttribute("citiesLastUpdate")==null){
-            session.setAttribute("citiesLastUpdate",cities.get(0).getUpdated());
-        }
-        model.addAttribute("cities",cities);
-        return "weather";
-    }
-
-    @PostMapping("/weather")
-    public String getWeather(Model model,
-                             @Param("filter") String filter,
-                             @Param("name")String name){
-        List<City> cities = new ArrayList<>();
-
-        ///jeżeli nie wpisano nazwy miasta sortujemy po wybranym wskaźniku
-        if(name.isEmpty()){
-            if (filter.contains("tempHighToLow")) {
-                cities=cityService.cityByTemperatureHighToLow();
-            } else if (filter.contains("tempLowToHigh")) {
-                cities= cityService.cityByTemperatureLowToHigh();
-            } else if (filter.contains("nameAtoZ")) {
-                cities= cityService.cityByNameASC();
-            } else if (filter.contains("nameZtoA")) {
-                cities=cityService.cityByNameDESC();
-            } else if (filter.contains("wind")) {
-                cities=cityService.cityByWindSpeed();
-            } else {
-                cities=cityService.cityByNameASC();
-            }
-        } else {
-            cities=cityService.cityByNameStartWith(name);
-        }
-
-        if(cities.size()==0){
-            model.addAttribute("nonCities","Our database does not contain such city.");
-        }
-        model.addAttribute("cities",cities);
-        return "weather";
-    }
-
-
     @GetMapping("/contact")
     public String getContacts(){
         return "contact";
     }
-
-
-
-
-
 }
